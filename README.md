@@ -10,11 +10,13 @@ Your role is to create a system which receives buy and sell signals for the diff
 
 Right now, the company is just ramping up. You start by implementing the API integration to execute the buy and sell signals received. Luckily, Binance has a testnet for each of its variants (spot trading and futures trading) with a completely virtual portfolio of crypto currencies, so you don't put your customers' assets at risk just yet.
 
-## Challenge
-
-An intern already started implementing a few pieces, but she left and you can change the entire project as you think makes most sense. Please separate the implementation of the individual parts, e.g. by commit and/or tag.
+An intern already started implementing a few pieces, but she left and you can change the entire project as you think makes most sense.
 
 Here we go.
+
+## Challenge
+
+Please separate the implementation of the individual parts by commit and/or tag.
 
 ### Part 1: Execute order for each signal
 
@@ -36,9 +38,9 @@ It's always nice to know how profitable a strategy is. If you have some time lef
 
 ## Prerequisites
 
-### Clone the repo
+### Fork the repo
 
-Clone [the repo](https://github.com/arnodirlam/binance-code-challenge) and fire up your favorite dev environment.
+Fork [the repo](https://github.com/arnodirlam/binance-code-challenge), clone it and fire up your favorite dev environment.
 
 ### Get API Key
 

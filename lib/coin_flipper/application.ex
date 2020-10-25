@@ -10,10 +10,12 @@ defmodule CoinFlipper.Application do
     Vapor.load!([%Vapor.Provider.Dotenv{}])
 
     children = [
+      CoinFlipper.Exchanges.BinanceFutures.BatchOrders,
+      CoinFlipper.Exchanges.BinanceFutures.Tracker,
       random_strategy_bot("BTCUSDT", "0.1", "1", 4..16),
       random_strategy_bot("ETHUSDT", "5", "20", 2..8),
       random_strategy_bot("LINKUSDT", "120", "240", 4..12),
-      random_strategy_bot("LENDUSDT", "600", "600", 8..32),
+      random_strategy_bot("AAVEUSDT", "600", "600", 8..32),
       random_strategy_bot("YFIUSDT", "0.04", "1.2", 12..64),
       {Finch, name: CoinFinch}
     ]
@@ -21,6 +23,7 @@ defmodule CoinFlipper.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: CoinFlipper.Supervisor]
+
     Supervisor.start_link(children, opts)
   end
 

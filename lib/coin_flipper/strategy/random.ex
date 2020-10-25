@@ -47,9 +47,10 @@ defmodule CoinFlipper.Strategy.Random do
     Decimal.add(position_size, executed_quantity)
   end
 
-  @doc "EDITME: Entry point for order execution!"
   def execute_signal(symbol, quantity) do
     IO.puts("Please change position size for #{symbol} by #{quantity}")
+
+    CoinFlipper.Exchanges.BinanceFutures.BatchOrders.new_order(symbol, quantity)
 
     quantity
   end

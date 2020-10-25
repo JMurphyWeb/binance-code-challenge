@@ -3,12 +3,14 @@ defmodule CoinFlipper.Exchanges.BinanceFutures do
 
   @api_key_header "X-MBX-APIKEY"
 
-  @doc """
-  Send a new market order to the exchange.
+  # @api_single_order_path "/fapi/v1/order"
+  @api_batch_order_path "/fapi/v1/batchOrders"
 
+  @doc """
+  Build a new market order
   Docs: https://binance-docs.github.io/apidocs/futures/en/#new-order-trade
   """
-  def create_market_order(symbol, quantity = %Decimal{}) do
+  def build_market_order({symbol, quantity = %Decimal{}}) do
     %{
       symbol: symbol,
       quantity: Decimal.abs(quantity),
@@ -16,11 +18,17 @@ defmodule CoinFlipper.Exchanges.BinanceFutures do
       type: "MARKET",
       newOrderRespType: "RESULT"
     }
-    |> signed_post("/fapi/v1/order")
   end
 
-  def create_market_order(symbol, quantity) do
-    create_market_order(symbol, Decimal.new(quantity))
+  def build_market_order({symbol, quantity}) do
+    build_market_order({symbol, Decimal.new(quantity)})
+  end
+
+  def create_batch_order(orders) do
+    %{
+      batchOrders: Enum.map(orders, &build_market_order/1) |> Jason.encode!()
+    }
+    |> signed_post(@api_batch_order_path)
   end
 
   defp signed_post(params, path) do
